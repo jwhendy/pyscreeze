@@ -18,6 +18,7 @@ import subprocess
 import sys
 import time
 import errno
+import win32gui
 
 from contextlib import contextmanager
 
@@ -109,7 +110,8 @@ if sys.platform == 'win32':
         try:
             yield hDC
         finally:
-            if windll.user32.ReleaseDC(hWnd, hDC) == 0:
+            if win32gui.ReleaseDC(hWnd, hDC) == 0:
+            #if windll.user32.ReleaseDC(hWnd, hDC) == 0:
                 raise WindowsError("windll.user32.ReleaseDC failed : return 0")
 
 Box = collections.namedtuple('Box', 'left top width height')
